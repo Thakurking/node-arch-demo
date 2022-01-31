@@ -41,7 +41,7 @@ services:
       context: ./nginx
       dockerfile: Dockerfile
     ports:
-        - "80:80"
+        - "81:80"
     depends_on:
       - seller
       - buyer
