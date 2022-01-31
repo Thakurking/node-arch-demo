@@ -2,8 +2,8 @@ version: '3.8'
 services:
   seller:
     build:
-      dockerfile: Dockerfile
       context: ./seller
+      dockerfile: Dockerfile
     container_name: seller
     ports:
       - "5000:5000"
@@ -14,20 +14,20 @@ services:
   
   buyer:
     build:
-      dockerfile: Dockerfile
       context: ./buyer
+      dockerfile: Dockerfile
     container_name: buyer
     ports:
       - "5001:5001"
     restart: always
     volumes:
-      -.:/app
+      - .:/app
       - /app/buyer/node_modules
   
   admin:
     build:
-      dockerfile: Dockerfile
       context: ./admin
+      dockerfile: Dockerfile
     container_name: admin
     ports:
       - "5002:5002"
@@ -38,11 +38,11 @@ services:
   
   nginx:
     build:
-      dockerfile: Dockerfile
       context: ./nginx
-      depends_on:
-        - seller
-        - buyer
-        - admin
-      ports:
+      dockerfile: Dockerfile
+    ports:
         - "80:80"
+    depends_on:
+      - seller
+      - buyer
+      - admin
