@@ -1,48 +1,56 @@
 version: '3.8'
 services:
   seller:
+    image: seller
     build:
-      context: ./seller-service
+      context: seller-service
       dockerfile: Dockerfile
     container_name: seller
     ports:
       - "5000:5000"
     restart: always
-    volumes:
-      - .:/app
-      - /app/seller/node_modules
   
   buyer:
+    image: buyer
     build:
-      context: ./buyer-service
+      context: buyer-service
       dockerfile: Dockerfile
     container_name: buyer
     ports:
       - "5001:5001"
     restart: always
-    volumes:
-      - .:/app
-      - /app/buyer/node_modules
   
   admin:
+    image: admin
     build:
-      context: ./admin-service
+      context: admin-service
       dockerfile: Dockerfile
     container_name: admin
     ports:
       - "5002:5002"
     restart: always
-    volumes:
-      - .:/app
-      - /app/admin/node_modules
+
+  database:
+    image: database
+    build:
+      context: database
+      dockerfile: Dockerfile
+    container_name: db
+    ports:
+      - "5003:5003"
+    restart: always
   
   nginx:
+    image: nginx
     build:
       context: ./nginx
       dockerfile: Dockerfile
     ports:
-        - "81:80"
+        - "80"
     depends_on:
       - seller
       - buyer
       - admin
+      - database
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/nginx.conf

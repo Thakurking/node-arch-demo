@@ -17,7 +17,7 @@ app.use("/admin", cors(), adminRoute);
 const PORT = 5002;
 
 const server = app.listen(PORT, () => {
-  console.log(`server is running on ${PORT}`);
+  console.log(`admin server is running on ${PORT}`);
 });
 
 process.on("unhandledRejection", (err, promis) => {

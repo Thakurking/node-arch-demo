@@ -17,7 +17,7 @@ app.use("/buyer", cors(), buyerRoute);
 const PORT = 5001;
 
 const server = app.listen(PORT, () => {
-  console.log(`server is running on ${PORT}`);
+  console.log(`buyer server is running on ${PORT}`);
 });
 
 process.on("unhandledRejection", (err, promis) => {

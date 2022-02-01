@@ -1,4 +1,4 @@
-const client = require("../../database/db.connection");
+// const client = require("../../database/db.connection");
 
 exports.getAdmin = async (req, res) => {
   // return res.json({ data: { name: "cat admin" }, status: true });
