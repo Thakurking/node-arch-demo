@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   seller:
-    image: seller
+    # image: seller
     build:
       context: seller-service
       dockerfile: Dockerfile
@@ -11,7 +11,7 @@ services:
     restart: always
   
   buyer:
-    image: buyer
+    # image: buyer
     build:
       context: buyer-service
       dockerfile: Dockerfile
@@ -21,7 +21,7 @@ services:
     restart: always
   
   admin:
-    image: admin
+    # image: admin
     build:
       context: admin-service
       dockerfile: Dockerfile
@@ -30,27 +30,24 @@ services:
       - "5002:5002"
     restart: always
 
-  database:
-    image: database
-    build:
-      context: database
-      dockerfile: Dockerfile
-    container_name: db
-    ports:
-      - "5003:5003"
-    restart: always
+  # database:
+  #   image: database
+  #   build:
+  #     context: database
+  #     dockerfile: Dockerfile
+  #   container_name: db
+  #   ports:
+  #     - "5003:5003"
+  #   restart: always
   
   nginx:
     image: nginx
     build:
-      context: ./nginx
+      context: nginx
       dockerfile: Dockerfile
     ports:
-        - "80"
+        - "80:80"
     depends_on:
       - seller
       - buyer
       - admin
-      - database
-    volumes:
-      - ./nginx/default.conf:/etc/nginx/nginx.conf
