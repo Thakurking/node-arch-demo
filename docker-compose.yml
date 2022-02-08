@@ -33,16 +33,6 @@ services:
       - "5002:5002"
     restart: always
 
-  # database:
-  #   image: database
-  #   build:
-  #     context: database
-  #     dockerfile: Dockerfile
-  #   container_name: db
-  #   ports:
-  #     - "5003:5003"
-  #   restart: always
-  
   #Nginx Service
   nginx:
     image: nginx
@@ -55,3 +45,29 @@ services:
       - seller
       - buyer
       - admin
+  
+  rabbitmq:
+    container_name: "rabbitmq"
+    image: rabbitmq:3-management-alpine
+    restart: always
+    # networks:
+    #   - myapp_net
+    ports:
+      - '5672:5672'
+      # HTTP management UI
+      - '15672:15672'
+    depends_on:
+      - seller
+      - buyer
+      - admin
+
+
+  # database:
+  #   image: database
+  #   build:
+  #     context: database
+  #     dockerfile: Dockerfile
+  #   container_name: db
+  #   ports:
+  #     - "5003:5003"
+  #   restart: always
