@@ -8,7 +8,7 @@ var connection, channel;
 async function amqpConnect() {
   try {
     console.log('==========inside seller amqp connection==========')
-    connection = await amqp.connect("amqp://rabbitmq:5673");
+    connection = await amqp.connect("amqp://rabbitmq");
     channel = await connection.createChannel();
     await channel.assertQueue("SELLER_QUEUE", { durable: true });
     console.log(channel);
