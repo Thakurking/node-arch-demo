@@ -6,10 +6,16 @@ const amqp = require("amqplib");
 
 var connection, channel;
 async function amqpConnect() {
-  connection = await amqp.connect("amqp://rabbitmq:5672");
-  channel = await connection.createChannel();
-  await channel.assertQueue("BUYER_QUEUE", { durable: true });
-  console.log(channel)
+  try {
+    console.log('==========inside buyer amqp connection==========')
+    connection = await amqp.connect("amqp://rabbitmq:5673");
+    channel = await connection.createChannel();
+    await channel.assertQueue("BUYER_QUEUE", { durable: true });
+    console.log(channel);
+  } catch (error) {
+    console.log(error)
+    throw error;
+  }
 }
 amqpConnect();
 const app = express();
@@ -27,7 +33,7 @@ app.use("/buyer", cors(), buyerRoute);
 
 const PORT = 5001;
 
-console.log('hii from buyer server')
+console.log("hii from buyer server");
 
 const server = app.listen(PORT, () => {
   console.log(`buyer server is running on ${PORT}`);
