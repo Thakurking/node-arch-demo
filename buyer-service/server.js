@@ -4,16 +4,20 @@ const helmet = require("helmet");
 const cors = require("cors");
 const amqp = require("amqplib");
 
-var connection, channel;
+// var connection, channel;
 async function amqpConnect() {
   try {
-    console.log('==========inside buyer amqp connection==========')
-    connection = await amqp.connect("amqp://rabbitmq");
+    console.log("==========buyer amqp connection==========");
+    const connection = await amqp.connect(
+      "amqp://admin:StrongPassword@13.232.71.179"
+    );
     channel = await connection.createChannel();
     await channel.assertQueue("BUYER_QUEUE", { durable: true });
     console.log(channel);
+    app.set("channel", channel);
+    module.exports.channel = channel
   } catch (error) {
-    console.log(error)
+    console.log(error);
     throw error;
   }
 }
@@ -24,8 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("combined"));
 app.use(helmet());
-
-app.set("channel", channel);
 
 const buyerRoute = require("./routes/buyer.routes");
 

@@ -46,23 +46,23 @@ services:
       - buyer
       - admin
   
-  rabbitmq:
-    container_name: "rabbitmq"
-    image: rabbitmq:3-management-alpine
-    restart: always
-    # networks:
-    #   - myapp_net
-    environment:
-      - RABBITMQ_DEFAULT_USER=myuser
-      - RABBITMQ_DEFAULT_PASS=mypassword
-    ports:
-      - '5672:5672'
-      # HTTP management UI
-      - '15672:15672'
-    depends_on:
-      - seller
-      - buyer
-      - admin
+  # rabbitmq:
+  #   container_name: "rabbitmq"
+  #   image: rabbitmq:3-management-alpine
+  #   restart: always
+  #   # networks:
+  #   #   - myapp_net
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=myuser
+  #     - RABBITMQ_DEFAULT_PASS=mypassword
+  #   ports:
+  #     - '5672:5672'
+  #     # HTTP management UI
+  #     - '15672:15672'
+  #   depends_on:
+  #     - seller
+  #     - buyer
+  #     - admin
 #   rabbitmq:
 #     image: rabbitmq:3.8-management-alpine
 #     container_name: 'rabbitmq'
