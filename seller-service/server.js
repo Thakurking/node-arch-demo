@@ -15,7 +15,7 @@ const amqpConnect = async () => {
     await channel.assertQueue("SELLER_QUEUE", { durable: true });
     console.log(channel);
     module.exports.channel = channel
-    // app.set("channel", channel);
+    app.set("channel", channel);
   } catch (error) {
     console.log(error);
     throw error;
