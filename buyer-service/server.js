@@ -22,6 +22,7 @@ async function amqpConnect() {
   }
 }
 amqpConnect();
+module.exports.amqpConnect = amqpConnect
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

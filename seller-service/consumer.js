@@ -17,6 +17,7 @@
 // };
 
 const amqp = require("./server")
+
 amqp.amqpConnect().then(() => {
   amqp.channel.consume("SELLER_QUEUE", (data) => {
     const {email, name, phone} = JSON.parse(data.content)
