@@ -1,5 +1,5 @@
 const amqp = require("./server");
-const processGST = require("./process-gst-data")
+// const processGST = require("./process-gst-data")
 
 amqp.amqpConnect().then(async () => {
     console.log("==========:consume gst detail amqp function:==========")

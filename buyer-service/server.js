@@ -3,6 +3,8 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const cors = require("cors");
 const amqp = require("amqplib");
+const expressJwt = require("express-jwt");
+const jwksClient = require("jwks-rsa");
 
 // var connection, channel;
 async function amqpConnect() {
@@ -15,20 +17,31 @@ async function amqpConnect() {
     await channel.assertQueue("BUYER_QUEUE", { durable: true });
     console.log(channel);
     app.set("channel", channel);
-    module.exports.channel = channel
+    module.exports.channel = channel;
   } catch (error) {
     console.log(error);
     throw error;
   }
 }
 amqpConnect();
-module.exports.amqpConnect = amqpConnect
+module.exports.amqpConnect = amqpConnect;
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(morgan("combined"));
 app.use(helmet());
+
+app.use(
+  expressJwt({
+    secret: jwksClient.expressJwtSecret({
+      jwksUri: "http://192.168.1.16:5003/.well-known/jwks.json",
+      cache: true,
+      rateLimit: true,
+    }),
+    algorithms: ["RS256"],
+  })
+);
 
 const buyerRoute = require("./routes/buyer.routes");
 
