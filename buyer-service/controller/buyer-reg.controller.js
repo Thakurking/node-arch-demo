@@ -4,6 +4,7 @@ exports.buyerRegistration = async (req, res) => {
   return res.json({
     message: "message from buyer registration protected api",
     status: true,
+    auth: req.authHeader
   });
   // const { name, email, phone } = req.body;
   // // const channel = req.app.get("channel");
