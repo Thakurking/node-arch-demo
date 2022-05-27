@@ -14,9 +14,10 @@ async function amqpConnect() {
     const connection = await amqp.connect(
       "amqp://admin:StrongPassword@13.232.71.179"
     );
-    channel = await connection.createChannel();
+    const channel = await connection.createChannel();
+    console.log(channel)
     await channel.assertQueue("BUYER_QUEUE", { durable: true });
-    console.log(channel);
+    // console.log(channel);
     app.set("channel", channel);
     module.exports.channel = channel;
   } catch (error) {
@@ -55,10 +56,11 @@ app.use(
 );
 
 const buyerRoute = require("./routes/buyer.routes");
+const { channel } = require("diagnostics_channel");
 
 app.use("/buyer", cors(), buyerRoute);
 
-const PORT = 5001;
+const PORT = 5007;
 
 console.log("hii from buyer server");
 
